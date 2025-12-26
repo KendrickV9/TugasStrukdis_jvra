@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "javalang>=0.13.0",
+    "kirjava-jvm>=0.1.8",
 ]
 
 [project.scripts]

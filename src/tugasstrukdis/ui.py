@@ -1,5 +1,6 @@
 from tugasstrukdis.sidebarui import set_sidebar_background
 from tugasstrukdis.parser import *
+from tugasstrukdis.graph import Graph
 import streamlit as st
 import graphviz
 import pandas as pd

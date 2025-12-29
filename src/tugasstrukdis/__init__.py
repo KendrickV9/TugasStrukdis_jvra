@@ -2,6 +2,7 @@ import javalang
 import javalang.tree as jt
 from dataclasses import dataclass
 from collections import defaultdict
+from .graph import Graph
 
 
 INDENTATION = 4
@@ -25,9 +26,9 @@ def interfere(var1: Variable, var2: Variable) -> bool:
 
 def build_interference_matrix(
     var_list: list[Variable],
-) -> defaultdict[str, dict[str, int]]:
+) -> defaultdict[str, dict[str, bool]]:
     """Creates a intereference matrix for a variable list as a nested dictionary"""
-    matrix: defaultdict[str, dict[str, int]] = defaultdict(dict)
+    matrix: defaultdict[str, dict[str, bool]] = defaultdict(dict)
     for var1 in var_list:
         for var2 in var_list:
             matrix[var1.name][var2.name] = interfere(var1, var2)
@@ -66,15 +67,11 @@ def parse_class(java_class: jt.ClassDeclaration, depth=0) :
     }
     for statement in java_class.body:
         if isinstance(statement, jt.MethodDeclaration):
-            variables = parse_method(statement)
-            matrix = build_interference_matrix(variables) # Kita simpan juga matrix-nya
-            
-            method_data = {
-                "method_name": statement.name,
-                "variables": variables,
-                "matrix": matrix # Disimpan barangkali nanti mau ditampilkan di UI
-            }
-            class_data["methods"].append(method_data)
+            print(f"{depth * INDENTATION * ' '}{statement.name}()")
+            vl: list[Variable] = parse_method(statement)
+            for variable in vl:
+                print(f"{(depth + 1) * INDENTATION * ' '}{variable}")
+            print(build_interference_matrix(vl))
         elif isinstance(statement, jt.ClassDeclaration):
            inner_class_data = parse_class(statement) # Panggil fungsi ini lagi (rekursif)
            class_data["inner_classes"].append(inner_class_data)

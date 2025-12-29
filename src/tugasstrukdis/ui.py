@@ -77,6 +77,21 @@ if tombol_submit:
                             st.caption(
                                 "Warna yang berbeda menandakan variabel harus disimpan di register memori yang berbeda."
                             )
+                            register_map=graph.get_colors()#ambil dict 
+                            df_registers = pd.DataFrame(
+                            list(register_map.items()), 
+                            columns=['Nama Variabel', 'Register ID (Warna)']
+                            )# buat tabelnya dan isi
+
+                            #sorting dengan valuenya
+                            df_registers = df_registers.sort_values(by='Register ID (Warna)')
+
+                            st.write("### Detail Pembagian Register")
+                            st.dataframe(
+                            df_registers, 
+                            use_container_width=True, 
+                            hide_index=True # Sembunyikan index angka 0,1,2 di kiri tabel
+                            )
                             st.pyplot(graph.get_figure())
                             with st.popover("Lihat Matriks Interferensi"):
                                 st.dataframe(pd.DataFrame(matrix).astype(bool))

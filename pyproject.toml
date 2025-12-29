@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Smeueg", email = "smeueg@gmail.com" }
+    { name = "Kumara Ivan Anuraga", email = "ivananuraga5@gmail.com" },
+    { name = "Kendrick Hansell Setiawan", email = "hansellkendrick@gmail.com" }
 ]
 requires-python = ">=3.13"
 dependencies = [
@@ -18,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-tugasstrukdis = "tugasstrukdis:main"
+main = "tugasstrukdis:main"
 
 [build-system]
 requires = ["uv_build>=0.9.7,<0.10.0"]

@@ -1,5 +1,5 @@
 [project]
-name = "Java Variable Register Allocator"
+name = "jvra"
 version = "0.1.0"
 description = "Program untuk mensimulasikan pengalokasian variable pada kode Java"
 readme = "README.md"
@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-jvra = "tugasstrukdis.ui:main"
+jvra = "jvra.ui:main"
 
 [build-system]
 requires = ["uv_build>=0.9.7,<0.10.0"]

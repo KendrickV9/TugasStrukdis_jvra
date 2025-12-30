@@ -1,6 +1,6 @@
-from tugasstrukdis.sidebarui import set_sidebar_background
-from tugasstrukdis.parser import JavaCode, JavaClass, JavaMethod
-from tugasstrukdis.graph import Graph
+from jvra.sidebarui import set_sidebar_background
+from jvra.parser import JavaCode, JavaClass, JavaMethod
+from jvra.graph import Graph
 import streamlit as st
 import graphviz
 import pandas as pd

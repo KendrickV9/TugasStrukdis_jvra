@@ -120,13 +120,18 @@ def load_class_analysis(java_code: str) -> None:
 
 
 def main() -> None:
-    # ----- UI Main (Node)
-    st.set_page_config(
-        page_title="Java Code Visualizer",
-        layout="wide",
-        initial_sidebar_state=st.session_state.sidebar_state,
-    )
-    load_sidebar()
+    if "__streamlitmagic__" not in globals():
+        from streamlit.web.bootstrap import run
+
+        run(__file__, False, [], {})
+    else:
+        # ----- UI Main (Node)
+        st.set_page_config(
+            page_title="Java Code Visualizer",
+            layout="wide",
+            initial_sidebar_state="expanded",
+        )
+        load_sidebar()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 [project]
-name = "tugasstrukdis"
+name = "Java Variable Register Allocator"
 version = "0.1.0"
-description = "Add your description here"
+description = "Program untuk mensimulasikan pengalokasian variable pada kode Java"
 readme = "README.md"
 authors = [
     { name = "Kumara Ivan Anuraga", email = "ivananuraga5@gmail.com" },
@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-main = "tugasstrukdis.ui:main"
+jvra = "tugasstrukdis.ui:main"
 
 [build-system]
 requires = ["uv_build>=0.9.7,<0.10.0"]

@@ -31,10 +31,12 @@ class JavaMethod:
         self.name: str = javalang_method.name
         self.variables: list[Variable] = []
         self.interference_matrix: defaultdict[str, dict[str, bool]]
+        self.start_line: int = javalang_method.body[0].position.line - 1
+        self.end_line: int = javalang_method.body[-1].position.line + 1
+        print(self.start_line, self.end_line)
 
         lvt: dict[str, Variable] = {}
 
-        ending_position: int = javalang_method.body[-1].position.line
         for statement in javalang_method.body:
             if isinstance(statement, jt.LocalVariableDeclaration):
                 declarators: jt.LocalVariableDeclaration = statement
@@ -43,7 +45,7 @@ class JavaMethod:
                         declarators.type.name,
                         declarator.name,
                         statement.position.line,
-                        ending_position,
+                        self.end_line - 1,
                     )
                     lvt[var.name] = var
 
@@ -78,7 +80,7 @@ class JavaClass:
 
 
 class JavaCode:
-    def __init__(self, code: str):
+    def __init__(self, code: str) -> None:
         self.code: str = code
         self.classes: list[JavaClass] = []
 
@@ -86,3 +88,6 @@ class JavaCode:
         for node in ast.types:
             if isinstance(node, jt.ClassDeclaration):
                 self.classes.append(JavaClass(node))
+
+    def get_snippet(self, start_line: int, end_line: int) -> str:
+        return "\n".join(self.code.splitlines()[start_line:end_line])

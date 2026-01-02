@@ -1,3 +1,10 @@
+import sys
+import os
+
+# --- Tambahkan 3 baris ajaib ini ---
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+# -----------------------------------
 from jvra.sidebarui import set_sidebar_background
 from jvra.parser import JavaCode, JavaClass, JavaMethod
 from jvra.graph import Graph

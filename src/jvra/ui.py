@@ -24,7 +24,7 @@ import javalang
 
 def load_sidebar() -> None:
     try:
-        set_sidebar_background("./assets/whitewpp.jpg")
+        set_sidebar_background("./assets/bluewpp.jpg")
     except FileNotFoundError:
         pass
     with st.sidebar:

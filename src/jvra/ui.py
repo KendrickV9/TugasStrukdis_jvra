@@ -1,9 +1,16 @@
 import sys
 import os
 
-# --- Tambahkan 3 baris ajaib ini ---
+
+# 1. Ambil lokasi folder tempat ui.py berada (yaitu folder 'jvra')
 current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(current_dir)
+
+# 2. Ambil folder di atasnya (yaitu folder 'src')
+src_dir = os.path.dirname(current_dir)
+
+# 3. Masukkan folder 'src' ke sistem pencarian Python
+# Supaya python bisa mengenali perintah "from jvra..."
+sys.path.append(src_dir)
 # -----------------------------------
 from jvra.sidebarui import set_sidebar_background
 from jvra.parser import JavaCode, JavaClass, JavaMethod
@@ -17,7 +24,7 @@ import javalang
 
 def load_sidebar() -> None:
     try:
-        set_sidebar_background("./assets/bluewpp.jpg")
+        set_sidebar_background("./assets/whitewpp.jpg")
     except FileNotFoundError:
         pass
     with st.sidebar:

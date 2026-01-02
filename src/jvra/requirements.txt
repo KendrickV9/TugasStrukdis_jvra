@@ -1,6 +1,4 @@
  streamlit
- dataclasses
- collections
  matplotlib.pyplot
  networkx 
  gcol

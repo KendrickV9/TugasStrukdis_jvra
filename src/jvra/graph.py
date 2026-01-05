@@ -23,6 +23,7 @@ class Graph:
         self.figure, ax = plt.subplots()
         nx.draw(
             self.graph,
+            nx.shell_layout(self.graph),
             with_labels=True,
             ax=ax,
             node_color=gcol.get_node_colors(self.graph, self.colors),

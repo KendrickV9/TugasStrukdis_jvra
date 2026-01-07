@@ -109,6 +109,15 @@ class JavaMethod:
                 current_life_end = reference.position.line
                 tmp_lvt[reference.member].life_end = max(tmp_life_end, current_life_end)
 
+        # Get object method invocations
+        for _, invocation in javalang_method.filter(jt.MethodInvocation):
+            if invocation.qualifier in tmp_lvt:
+                tmp_life_end = tmp_lvt[invocation.qualifier].life_end
+                current_life_end = invocation.position.line
+                tmp_lvt[invocation.qualifier].life_end = max(
+                    tmp_life_end, current_life_end
+                )
+
         self.variables = list(tmp_lvt.values())
         self.interference_matrix = self.__build_interference_matrix()
 

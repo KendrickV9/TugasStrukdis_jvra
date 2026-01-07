@@ -1,6 +1,8 @@
 # TugasStrukdis
+
 ## Cara Menjalankan Aplikasi:
 -buka link https://jvra-app.streamlit.app/ untuk WEB atau ketik ini di terminal `pip install git+https://github.com/KumaraIvanA/TugasStrukdis.git` setelah itu ketik **jvra** di terminal
+**Sangat disarankan membaca README ini dari link github** https://github.com/KumaraIvanA/TugasStrukdis.git
 ## Teknologi yang Digunakan
 
 Berikut adalah teknologi dan library yang digunakan dalam pengembangan aplikasi ini:

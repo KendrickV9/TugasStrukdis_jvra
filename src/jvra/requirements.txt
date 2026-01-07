@@ -1,6 +1,0 @@
- streamlit
- matplotlib
- networkx 
- javalang
- pandas
- gcol

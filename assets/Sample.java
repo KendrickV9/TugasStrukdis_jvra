@@ -4,10 +4,12 @@ public class Sample {
 		int b = 2;
 		int c = a + b;
 		int d = a + b;
-		if (true) {
-			int foo = 3;
-			foo = foo + 1;
+
+		for (int i = 0; i < 10; i++) {
+			System.out.println("foo");
 		}
+
+		System.out.println(args[0]);
 
 		Point p = new Point(1, 2);
 		System.out.println(c);

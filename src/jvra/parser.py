@@ -7,6 +7,31 @@ from collections import defaultdict
 
 INDENTATION = 4
 
+SCOPES = (
+    jt.ForStatement,
+    jt.WhileStatement,
+    jt.IfStatement,
+    jt.CatchClause,
+    jt.MethodDeclaration,
+)
+
+
+def rec_get_last_expr_pos(scope) -> int:
+    """Get the position of the last expression of a scope recursively"""
+    if hasattr(scope, "body"):
+        return rec_get_last_expr_pos(scope.body)
+
+    if isinstance(scope, jt.BlockStatement):
+        return rec_get_last_expr_pos(scope.statements[-1])
+
+    if isinstance(scope, jt.IfStatement):
+        if scope.else_statement:
+            return rec_get_last_expr_pos(scope.else_statement)
+        else:
+            return rec_get_last_expr_pos(scope.then_statement)
+
+    return scope.position.line
+
 
 @dataclass
 class Variable:
@@ -40,25 +65,51 @@ class JavaMethod:
         self.start_line: int = javalang_method.position.line - 1
         self.end_line: int = javalang_method.body[-1].position.line + 1
 
-        lvt: dict[str, Variable] = {}
+        tmp_lvt: dict[str, Variable] = {}
 
-        for statement in javalang_method.body:
-            if isinstance(statement, jt.LocalVariableDeclaration):
-                declarators: jt.LocalVariableDeclaration = statement
-                for declarator in declarators.declarators:
-                    var = Variable(
-                        declarators.type.name,
-                        declarator.name,
-                        statement.position.line,
-                        statement.position.line,
+        # Handle method parameters
+        for param in javalang_method.parameters:
+            tmp_lvt[param.name] = Variable(
+                param.type.name, param.name, self.start_line, self.start_line
+            )
+
+        # Find variable declarations
+        for path, node in javalang_method:
+            if isinstance(node, jt.ForControl) and node.init:
+                # Handle the for-loop initializer
+                variables: list[str] = list(
+                    map(lambda d: d.name, node.init.declarators)
+                )
+                for_statement: jt.ForStatement = path[-1]
+                last_expression = for_statement.body
+                if isinstance(last_expression, jt.BlockStatement):
+                    last_expression = last_expression.statements[-1]
+
+                life_start = for_statement.position.line
+                life_end = last_expression.position.line
+                for variable in variables:
+                    tmp_lvt[variable] = Variable(
+                        node.init.type.name, variable, life_start, life_end
                     )
-                    lvt[var.name] = var
+            elif isinstance(node, jt.LocalVariableDeclaration):
+                # Handle regular variable declarations
+                variables: list[str] = list(map(lambda d: d.name, node.declarators))
+                life_start: int = node.position.line
+                life_end: int = life_start
+                scope = None
+                for variable in variables:
+                    tmp_lvt[variable] = Variable(
+                        node.type.name, variable, life_start, life_end
+                    )
 
+        # Get variable references
         for _, reference in javalang_method.filter(jt.MemberReference):
-            if reference.member in lvt:
-                lvt[reference.member].life_end = reference.position.line
+            if reference.member in tmp_lvt:
+                tmp_life_end = tmp_lvt[reference.member].life_end
+                current_life_end = reference.position.line
+                tmp_lvt[reference.member].life_end = max(tmp_life_end, current_life_end)
 
-        self.variables = list(lvt.values())
+        self.variables = list(tmp_lvt.values())
         self.interference_matrix = self.__build_interference_matrix()
 
     def __build_interference_matrix(self) -> defaultdict[str, dict[str, bool]]:

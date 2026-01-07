@@ -128,8 +128,9 @@ def load_class_analysis(java_code: str) -> None:
                 continue
 
             tabs = st.tabs(list(map(lambda m: f"{m.name}()", java_class.methods)))
-            for method in java_class.methods:
-                load_method_analysis(method, parsed_code)
+            for tab, method in zip(tabs, java_class.methods):
+                with tab:
+                    load_method_analysis(method, parsed_code)
 
 
 def main() -> None:

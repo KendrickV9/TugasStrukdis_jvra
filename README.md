@@ -28,3 +28,15 @@ Di halaman utama, kami menyediakan dua cara mudah untuk menganalisis kode Java A
 
 ## Tampilan jika anda sudah mengupload file Java
 <img src="assets/tampilan.png" alt="Tampilam Aplikasi" width="80%">
+
+
+## 👥 Tim Pengembang
+
+Berikut adalah anggota tim yang berkontribusi dalam proyek ini beserta tanggung jawab masing-masing:
+
+| Nama | NPM | Peran & Tanggung Jawab |
+| :--- | :--- | :--- |
+| **Ivan** | 6182401018 | **Algorithm Engineer**<br>Merancang dan mengembangkan algoritma pewarnaan graf |
+| **Kendrick Hansell Setiawan** | 6182401049 | **UI/UX Designer & Frontend**<br>Merancang antarmuka aplikasi yang interaktif untuk mempermudah visualisasi data. |
+| **Rafael Bintang** | 6182401084 | **Multimedia Specialist**<br>Membuat  video interaktif untuk menjelaskan cara kerja register. |
+| **Matthew Felizio** | 6182401067 | **Graphic Designer**<br>Merancang dan membuat poster yang menarik untuk menjelaskan materi berkaitan dengan alokasi register. |

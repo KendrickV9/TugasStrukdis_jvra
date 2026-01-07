@@ -7,7 +7,7 @@ authors = [
     { name = "Kumara Ivan Anuraga", email = "ivananuraga5@gmail.com" },
     { name = "Kendrick Hansell Setiawan", email = "hansellkendrick@gmail.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.13,<3.14"
 dependencies = [
     "gcol>=2.1",
     "graphviz>=0.21",
